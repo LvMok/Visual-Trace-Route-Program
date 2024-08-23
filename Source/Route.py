@@ -25,7 +25,7 @@ class Threadw(QThread):
         hop = int(self.parent.hop.text())
         
         for i in range(1,hop+1): 
-            if to == 3:
+            if to == 4:
                 self.fckList.append("Process Shutdown (Type 4)")
                 self.fcksignal.emit(self.fckList,self.new)
                 enable = True
@@ -71,7 +71,6 @@ class WindowClass(QMainWindow) :
             if i == '*** (Fire Wall)':
                 comp.setText(3,'(Time out)')
             elif i=='Process Shutdown (Type 4)':
-                comp.setText(0,"Process Shutdown (Type 4)")
                 comp.setText(4,"Mass Timeout")
             else:
                 comp.setText(3,'<1ms')
@@ -81,7 +80,6 @@ class WindowClass(QMainWindow) :
         data1.clear()
     
     def run(self,button):
-        self.comfirm.setEnabled(False)
         new = QTreeWidgetItem(self.treeWidget)
         
         if self.tip.text()=="" or self.hop.text()=="": #these are my insignificant warning handler
@@ -102,6 +100,8 @@ class WindowClass(QMainWindow) :
                 new.setText(0,"Error (Type 2)")
                 error.setText(4,"Ip address is not vaild")
                 return
+
+        self.comfirm.setEnabled(False)
 
         self.worker = Threadw(self,new)
         self.worker.finished.connect(self.thread_fin)   
